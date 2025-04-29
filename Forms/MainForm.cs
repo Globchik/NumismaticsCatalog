@@ -1,5 +1,7 @@
 using NumismaticsCatalog.Forms;
 using NumismaticsCatalog.Models;
+using System.Data;
+using System.Windows.Forms;
 
 namespace NumismaticsCatalog
 {
@@ -22,8 +24,6 @@ namespace NumismaticsCatalog
         private void LoadCollactioners()
         {
             this.dGV_Collectioners.Columns.Clear();
-            this.dGV_Collectioners.Rows.Clear();
-
             this.dGV_Collectioners.DataSource = AppData.AppData.Collectors;
 
             DataGridViewTextBoxColumn col = new()
@@ -69,9 +69,29 @@ namespace NumismaticsCatalog
             if (selected_collector == null)
                 return;
 
-            coin_view.Click += (_,_) => (new FormCoinsList(selected_collector)).ShowDialog();
+            coin_view.Click += (_, _) => (new FormCoinsList(selected_collector)).ShowDialog();
             cms.Items.Add(coin_view);
             e.ContextMenuStrip = cms;
+        }
+
+        private void tbSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+            {
+                LoadCollactioners();
+                CurrencyManager? currencyMan = BindingContext[dGV_Collectioners.DataSource] as CurrencyManager;
+                if (currencyMan != null)
+                    currencyMan.SuspendBinding();
+                for (int i = 0; i < dGV_Collectioners.RowCount; i++)
+                {
+                    string? val = dGV_Collectioners.Rows[i].Cells[0].Value as string;
+                    if (val == null)
+                        continue;
+                    dGV_Collectioners.Rows[i].Visible = val.ToLower().Contains(tbSearch.Text.ToLower());
+                }
+                if (currencyMan != null)
+                    currencyMan.ResumeBinding();
+            }
         }
     }
 }

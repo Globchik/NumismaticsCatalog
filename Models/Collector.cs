@@ -8,8 +8,8 @@ namespace NumismaticsCatalog.Models
         public string Name { get; set; }
 
         public Country Country { get; set; }
-
         public string CountryString { get => Country.Name; }
+
         public string ContactInformation { get; set; }
 
         public List<Coin> CoinCollection = new();
