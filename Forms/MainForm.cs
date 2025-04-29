@@ -16,11 +16,16 @@ namespace NumismaticsCatalog
 
         private void SetDGVStyle()
         {
-            this.dGV_Collectioners.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.dGV_Collectioners.DefaultCellStyle.Font = new("Verdana", 12);
-            this.dGV_Collectioners.ColumnHeadersDefaultCellStyle.Font = new("Verdana", 15);
-            this.dGV_Collectioners.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.dGV_Collectioners.AutoGenerateColumns = false;
+            var grid = this.dGV_Collectioners;
+            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            grid.DefaultCellStyle.Font = new("Verdana", 12);
+            grid.ColumnHeadersDefaultCellStyle.Font = new("Verdana", 15);
+            grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            grid.AutoGenerateColumns = false;
+            grid.ReadOnly = true;
+            grid.AllowUserToOrderColumns = false;
+            grid.RowHeadersVisible = false;
+            grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void LoadCollactioners()
@@ -53,10 +58,47 @@ namespace NumismaticsCatalog
             this.dGV_Collectioners.Columns.Add(col);
         }
 
+        private void LoadCountriesComboBox()
+        {
+            this.cb_Countries.DataSource = AppData.UserData.Data.Countries;
+            this.cb_Countries.DisplayMember = "Name";
+            this.cb_Countries.SelectedIndex = -1;
+        }
+
+        private void ApplySearchFilter()
+        {
+            CurrencyManager? currencyMan = BindingContext?[dGV_Collectioners.DataSource] as CurrencyManager;
+            if (currencyMan != null)
+                currencyMan.SuspendBinding();
+
+            for (int i = 0; i < dGV_Collectioners.RowCount; i++)
+            {
+                bool is_visible = true;
+                string? val = dGV_Collectioners.Rows[i].Cells[0].Value as string;
+                if (val != null)
+                    is_visible = val.ToLower().Contains(tbSearch.Text.ToLower());
+
+                val = dGV_Collectioners.Rows[i].Cells[1].Value as string;
+                if (val != null)
+                    is_visible = is_visible && val.ToLower().Contains(cb_Countries.Text.ToLower());
+
+                val = dGV_Collectioners.Rows[i].Cells[2].Value as string;
+                if (val != null)
+                    is_visible = is_visible && val.ToLower().Contains(tb_ContactInfo.Text.ToLower());
+
+                dGV_Collectioners.Rows[i].Visible = is_visible;
+            }
+
+            if (currencyMan != null)
+                currencyMan.ResumeBinding();
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
+            this.KeyPreview = true;
             SetDGVStyle();
             LoadCollactioners();
+            LoadCountriesComboBox();
         }
 
         private void dGV_Collectioners_RowContextMenuStripNeeded(object sender, DataGridViewRowContextMenuStripNeededEventArgs e)
@@ -78,22 +120,15 @@ namespace NumismaticsCatalog
 
         private void tbSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '\r')
-            {
-                LoadCollactioners();
-                CurrencyManager? currencyMan = BindingContext[dGV_Collectioners.DataSource] as CurrencyManager;
-                if (currencyMan != null)
-                    currencyMan.SuspendBinding();
-                for (int i = 0; i < dGV_Collectioners.RowCount; i++)
-                {
-                    string? val = dGV_Collectioners.Rows[i].Cells[0].Value as string;
-                    if (val == null)
-                        continue;
-                    dGV_Collectioners.Rows[i].Visible = val.ToLower().Contains(tbSearch.Text.ToLower());
-                }
-                if (currencyMan != null)
-                    currencyMan.ResumeBinding();
-            }
+
+        }
+
+        private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar != '\r')
+                return;
+
+            ApplySearchFilter();
         }
     }
 }

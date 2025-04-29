@@ -21,11 +21,16 @@ namespace NumismaticsCatalog.Forms
         }
         private void SetDGVStyle()
         {
-            this.dGV_Coins.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.dGV_Coins.DefaultCellStyle.Font = new("Verdana", 10);
-            this.dGV_Coins.ColumnHeadersDefaultCellStyle.Font = new("Verdana", 12);
-            this.dGV_Coins.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.dGV_Coins.AutoGenerateColumns = false;
+            var grid = this.dGV_Coins;
+            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            grid.DefaultCellStyle.Font = new("Verdana", 10);
+            grid.ColumnHeadersDefaultCellStyle.Font = new("Verdana", 12);
+            grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            grid.AutoGenerateColumns = false;
+            grid.ReadOnly = true;
+            grid.AllowUserToOrderColumns = false;
+            grid.RowHeadersVisible = false;
+            grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void LoadCoins()
