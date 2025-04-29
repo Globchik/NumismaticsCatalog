@@ -1,4 +1,7 @@
-﻿namespace NumismaticsCatalog
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace NumismaticsCatalog
 {
     partial class MainForm
     {

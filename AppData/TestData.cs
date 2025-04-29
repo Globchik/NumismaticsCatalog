@@ -110,7 +110,7 @@ namespace NumismaticsCatalog.AppData
             collector.AddCoin(coins.Find(x => x.YearOfIssue == 1982 && x.CoinValue == 0.5f));
             collectors.Add(collector);
 
-            AppData.Load(countries, metals, currencies, coins, collectors);
+            UserData.Data.Load(countries, metals, currencies, coins, collectors);
         }
     }
 }

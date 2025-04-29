@@ -10,6 +10,5 @@ namespace NumismaticsCatalog.Models
         {
             Name = name;
         }
-
     }
 }

@@ -1,5 +1,7 @@
+using NumismaticsCatalog.AppData;
 using NumismaticsCatalog.Forms;
 using NumismaticsCatalog.Models;
+using System;
 using System.Data;
 using System.Windows.Forms;
 
@@ -24,7 +26,7 @@ namespace NumismaticsCatalog
         private void LoadCollactioners()
         {
             this.dGV_Collectioners.Columns.Clear();
-            this.dGV_Collectioners.DataSource = AppData.AppData.Collectors;
+            this.dGV_Collectioners.DataSource = UserData.Data.Collectors;
 
             DataGridViewTextBoxColumn col = new()
             {
