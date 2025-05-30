@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace NumismaticsCatalog.Forms
 {
-    partial class FormCoinsList
+    partial class FormCoinsView
     {
         /// <summary>
         /// Required designer variable.
@@ -66,14 +66,14 @@ namespace NumismaticsCatalog.Forms
             Tlpanel.Size = new Size(833, 350);
             Tlpanel.TabIndex = 1;
             // 
-            // FormCoinsList
+            // FormCoinsView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(833, 350);
             Controls.Add(Tlpanel);
             MinimumSize = new Size(600, 170);
-            Name = "FormCoinsList";
+            Name = "FormCoinsView";
             Text = "Монети";
             Load += FormCoinsList_Load;
             ((System.ComponentModel.ISupportInitialize)dGV_Coins).EndInit();

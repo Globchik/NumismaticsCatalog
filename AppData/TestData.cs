@@ -11,6 +11,7 @@ namespace NumismaticsCatalog.AppData
     {
         public static void LoadTestData()
         {
+            /*
             List<Country> countries = new();
             countries.Add(new Country("Україна"));
             countries.Add(new Country("США"));
@@ -109,8 +110,8 @@ namespace NumismaticsCatalog.AppData
             collector.AddCoin(coins.Find(x => x.Notes == "Степовий Орел"));
             collector.AddCoin(coins.Find(x => x.YearOfIssue == 1982 && x.CoinValue == 0.5f));
             collectors.Add(collector);
-
-            UserData.Data.Load(countries, metals, currencies, coins, collectors);
+            */
+            UserData.LoadSavedData();
         }
     }
 }

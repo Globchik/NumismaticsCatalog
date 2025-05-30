@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace NumismaticsCatalog
 {
-    partial class MainForm
+    partial class FormCollectorsView
     {
         /// <summary>
         ///  Required designer variable.
@@ -62,7 +62,6 @@ namespace NumismaticsCatalog
             tbSearch.Name = "tbSearch";
             tbSearch.Size = new Size(189, 27);
             tbSearch.TabIndex = 1;
-            tbSearch.KeyPress += tbSearch_KeyPress;
             // 
             // tableLayoutPanel1
             // 
@@ -144,14 +143,14 @@ namespace NumismaticsCatalog
             cb_Countries.Size = new Size(162, 26);
             cb_Countries.TabIndex = 4;
             // 
-            // MainForm
+            // FormCollectorsView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(955, 538);
             Controls.Add(tableLayoutPanel1);
             MinimumSize = new Size(550, 190);
-            Name = "MainForm";
+            Name = "FormCollectorsView";
             Text = "Довідник Нумізмата";
             Load += MainForm_Load;
             KeyPress += MainForm_KeyPress;

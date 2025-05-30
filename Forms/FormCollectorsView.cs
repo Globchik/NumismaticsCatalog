@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 namespace NumismaticsCatalog
 {
-    public partial class MainForm : Form
+    public partial class FormCollectorsView : Form
     {
-        public MainForm()
+        public FormCollectorsView()
         {
             InitializeComponent();
         }
@@ -113,22 +113,19 @@ namespace NumismaticsCatalog
             if (selected_collector == null)
                 return;
 
-            coin_view.Click += (_, _) => (new FormCoinsList(selected_collector)).ShowDialog();
+            coin_view.Click += (_, _) => (new FormCoinsView(selected_collector)).ShowDialog();
             cms.Items.Add(coin_view);
             e.ContextMenuStrip = cms;
         }
 
-        private void tbSearch_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
         private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar != '\r')
-                return;
-
-            ApplySearchFilter();
+            if (e.KeyChar == '\r')
+            {
+                ApplySearchFilter();
+                e.Handled = true;
+            }
+            
         }
     }
 }

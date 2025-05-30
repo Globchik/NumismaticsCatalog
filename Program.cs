@@ -15,7 +15,7 @@ namespace NumismaticsCatalog
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             TestData.LoadTestData();
-            Application.Run(new MainForm());
+            Application.Run(new FormCollectorsView());
         }
     }
 }

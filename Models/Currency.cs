@@ -9,6 +9,9 @@ namespace NumismaticsCatalog.Models
 {
     public class Currency
     {
+        /// <summary>
+        /// Currency class stores a currency name.
+        /// </summary>
         public string Name { get; set; }
 
         public Currency(string name)

@@ -5,6 +5,11 @@ using System.Xml.Serialization;
 
 namespace NumismaticsCatalog.Models
 {
+    /// <summary>
+    /// Coin class represents a coin,
+    /// it has coin`s country, currency, date of issue,
+    /// metal contents and notes.
+    /// </summary>
     public class Coin
     {
         public List<Metal> MetalContent = new();

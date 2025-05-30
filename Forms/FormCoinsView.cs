@@ -5,15 +5,15 @@ using NumismaticsCatalog.Models;
 
 namespace NumismaticsCatalog.Forms
 {
-    public partial class FormCoinsList : Form
+    public partial class FormCoinsView : Form
     {
         List<Coin> coins = new();
-        public FormCoinsList()
+        public FormCoinsView()
         {
             InitializeComponent();
         }
 
-        public FormCoinsList(Collector collector)
+        public FormCoinsView(Collector collector)
         {
             InitializeComponent();
             this.Text = "Монети - " + collector.Name;

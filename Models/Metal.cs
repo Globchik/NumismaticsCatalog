@@ -7,6 +7,9 @@ using System.Xml.Serialization;
 
 namespace NumismaticsCatalog.Models
 {
+    /// <summary>
+    /// Metal class stores a metal name.
+    /// </summary>
     public class Metal
     {
         public string Name { get; set; }

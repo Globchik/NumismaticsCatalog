@@ -5,6 +5,12 @@ using System.Linq;
 
 namespace NumismaticsCatalog.AppData
 {
+    /// <summary>
+    /// AppData represents a combined collection
+    /// of all data, that is used by the
+    /// application (Collectors, Coins, Countries,
+    /// Metals, Currencies)
+    /// </summary>
     public class AppData
     {
         public List<Country> Countries = new();
@@ -13,14 +19,5 @@ namespace NumismaticsCatalog.AppData
         public List<Coin> Coins = new();
         public List<Collector> Collectors = new();
 
-        public void Load(List<Country> countries, List<Metal> metals, List<Currency> currencies,
-            List<Coin> coins, List<Collector> collectors)
-        {
-            Countries = countries;
-            Metals = metals;
-            Currencies = currencies;
-            Coins = coins;
-            Collectors = collectors;
-        }
     }
 }

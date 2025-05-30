@@ -5,6 +5,12 @@ using System.Xml.Serialization;
 
 namespace NumismaticsCatalog.Models
 {
+    /// <summary>
+    /// Collector class represents a coin collector,
+    /// it has information about collector
+    /// (name, country, contact information) and
+    /// their coin collection.
+    /// </summary>
     public class Collector
     {
         public string Name { get; set; }
