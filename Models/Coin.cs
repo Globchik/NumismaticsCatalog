@@ -37,7 +37,7 @@ namespace NumismaticsCatalog.Models
             get => _year;
             set
             {
-                if (value < 0)
+                if (value != null && value < 0)
                     throw new ArgumentException("Wrong Year of issue.");
 
                 _year = value;

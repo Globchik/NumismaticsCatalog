@@ -103,7 +103,7 @@ namespace NumismaticsCatalog
         private void btn_Coins_Click(object sender, EventArgs e)
         {
             var coin_form = new FormCoinsView(
-                FormCoinsView.FormCoinsViewType.All
+                FormCoinsView.FormCoinsViewType.ViewAll
                 );
             ShowForm(coin_form);
         }

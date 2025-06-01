@@ -11,16 +11,17 @@ namespace NumismaticsCatalog.Forms
     public partial class FormCoinsView : Form
     {
         List<Coin> coins_list;
-        public Coin? CoinToAdd { get; set; }
-        public enum FormCoinsViewType { All, Collector, PersonalCollection, AddCoin }
+        public Coin? SelectedCoin { get; set; }
+        public Collector? CoinsOwner { get; set; }
+        public enum FormCoinsViewType { ViewAll, Collector, PersonalCollection, SelectCoin }
 
-        private FormCoinsViewType form_type = FormCoinsViewType.All;
+        private FormCoinsViewType form_type = FormCoinsViewType.ViewAll;
         public FormCoinsView(FormCoinsViewType type)
         {
             InitializeComponent();
             this.form_type = type;
-            if (type == FormCoinsViewType.All ||
-                type == FormCoinsViewType.AddCoin)
+            if (type == FormCoinsViewType.ViewAll ||
+                type == FormCoinsViewType.SelectCoin)
             {
                 this.Text = "Монети";
                 this.lbl_Title.Text = "Монети";
@@ -40,6 +41,7 @@ namespace NumismaticsCatalog.Forms
         {
             InitializeComponent();
             form_type = FormCoinsViewType.Collector;
+            CoinsOwner = collector;
             this.Text = "Монети - " + collector.Name;
             this.lbl_Title.Text = collector.Name;
             coins_list = collector.CoinCollection;
@@ -60,7 +62,7 @@ namespace NumismaticsCatalog.Forms
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             grid.DefaultCellStyle.Padding = new Padding(3);
 
-            if (form_type == FormCoinsViewType.All)
+            if (form_type == FormCoinsViewType.ViewAll)
             {
                 ContextMenuStrip cms = new();
                 ToolStripMenuItem create_coin = new()
@@ -73,6 +75,29 @@ namespace NumismaticsCatalog.Forms
                     ApplyFilters();
                 };
                 cms.Items.Add(create_coin);
+                grid.ContextMenuStrip = cms;
+            }
+            else if (form_type == FormCoinsViewType.Collector ||
+               form_type == FormCoinsViewType.PersonalCollection)
+            {
+                ContextMenuStrip cms = new();
+                ToolStripMenuItem add_coin = new()
+                {
+                    Text = "Додати монету"
+                };
+                add_coin.Click += (_, _) =>
+                {
+                    FormCoinsView coin_select = new(FormCoinsViewType.SelectCoin);
+                    coin_select.ShowDialog();
+
+                    if (coin_select.SelectedCoin != null && CoinsOwner != null)
+                        CoinsOwner.AddCoin(coin_select.SelectedCoin);
+                    else if (coin_select.SelectedCoin != null)
+                        UserData.AddCoinToPersonal(coin_select.SelectedCoin);
+
+                    ApplyFilters();
+                };
+                cms.Items.Add(add_coin);
                 grid.ContextMenuStrip = cms;
             }
         }
@@ -149,7 +174,7 @@ namespace NumismaticsCatalog.Forms
             this.cb_Country.AutoCompleteSource
                  = AutoCompleteSource.CustomSource;
             this.cb_Country.AutoCompleteMode
-                 = AutoCompleteMode.Suggest;
+                 = AutoCompleteMode.Append;
 
             AutoCompleteStringCollection metal_names = new();
             foreach (Metal m in UserData.Data.Metals)
@@ -180,10 +205,11 @@ namespace NumismaticsCatalog.Forms
                     "" : c.Country.Name;
                 string amount = c.AmountIssued == null ?
                     "" : c.AmountIssued.Value.ToString();
-
+                string year = c.YearOfIssue == null ?
+                    "" : c.YearOfIssue.Value.ToString();
 
                 bool filter_passsed =
-                    c.YearOfIssue.ToString().Contains(yearf) &&
+                    year.Contains(yearf) &&
                     countryn.ToLower().Contains(countryf) &&
                     amount.Contains(amountf) &&
                     c.CoinValueString.Contains(nominalf) &&
@@ -228,12 +254,11 @@ namespace NumismaticsCatalog.Forms
                 UserData.Data.Coins.Remove(coin);
                 ApplyFilters();
             }
-               
         }
 
         private void SelectCoinToAdd(Coin coin)
         {
-            CoinToAdd = coin;
+            SelectedCoin = coin;
             this.Close();
         }
 
@@ -270,52 +295,97 @@ namespace NumismaticsCatalog.Forms
 
             ContextMenuStrip cms = new();
 
-            if (selected_coin != null)
+            if (selected_coin != null && form_type == FormCoinsViewType.ViewAll)
             {
-                if (form_type == FormCoinsViewType.All)
+                ToolStripMenuItem edit_coin = new()
                 {
-                    ToolStripMenuItem edit_coin = new()
-                    {
-                        Text = "Редагувати"
-                    };
-                    edit_coin.Click += (_, _) => {
-                        (new FormEditCoin(selected_coin)).ShowDialog();
-                        ApplyFilters();
-                    };
-                    cms.Items.Add(edit_coin);
+                    Text = "Редагувати"
+                };
+                edit_coin.Click += (_, _) =>
+                {
+                    (new FormEditCoin(selected_coin)).ShowDialog();
+                    ApplyFilters();
+                };
+                cms.Items.Add(edit_coin);
 
-                    ToolStripMenuItem delete_coin = new()
-                    {
-                        Text = "Видалити"
-                    };
-                    delete_coin.Click += (_, _) => DeleteCoinDialog(selected_coin);
-                    cms.Items.Add(delete_coin);
-                }
-                if (form_type == FormCoinsViewType.AddCoin)
+                ToolStripMenuItem delete_coin = new()
                 {
-                    ToolStripMenuItem add_coin = new()
-                    {
-                        Text = "Додати до колекції"
-                    };
-                    add_coin.Click += (_, _) => SelectCoinToAdd(selected_coin);
-                    cms.Items.Add(add_coin);
-                }
+                    Text = "Видалити"
+                };
+                delete_coin.Click += (_, _) => DeleteCoinDialog(selected_coin);
+                cms.Items.Add(delete_coin);
             }
 
-            if (form_type == FormCoinsViewType.All)
+            if (form_type == FormCoinsViewType.ViewAll)
             {
                 ToolStripMenuItem create_coin = new()
                 {
                     Text = "Створити нову монету"
                 };
-                create_coin.Click += (_, _) => {
-                    (new FormEditCoin()).ShowDialog();
-                    ApplyFilters();  
-                    };
+                create_coin.Click += (_, _) =>
+                {
+                    new FormEditCoin().ShowDialog();
+                    ApplyFilters();
+                };
                 cms.Items.Add(create_coin);
+            }
+
+            if (selected_coin != null && 
+                (form_type == FormCoinsViewType.Collector ||
+                form_type == FormCoinsViewType.PersonalCollection))
+            {
+                ToolStripMenuItem remove_coin = new()
+                {
+                    Text = "Прибрати монету"
+                };
+                remove_coin.Click += (_, _) =>
+                {
+                    if (CoinsOwner != null)
+                        CoinsOwner.CoinCollection.Remove(selected_coin);
+                    else if(form_type == FormCoinsViewType.PersonalCollection)
+                        UserData.Data.MyCoins.Remove(selected_coin);
+
+                    ApplyFilters();
+                };
+                cms.Items.Add(remove_coin);
+
+            }
+
+            if (selected_coin != null && form_type == FormCoinsViewType.SelectCoin)
+            {
+                ToolStripMenuItem add_coin = new()
+                {
+                    Text = "Додати до колекції"
+                };
+                add_coin.Click += (_, _) => SelectCoinToAdd(selected_coin);
+                cms.Items.Add(add_coin);
+            }
+
+            if (form_type == FormCoinsViewType.Collector ||
+                form_type == FormCoinsViewType.PersonalCollection)
+            {
+                ToolStripMenuItem add_coin = new()
+                {
+                    Text = "Додати монету"
+                };
+                add_coin.Click += (_, _) =>
+                {
+                    FormCoinsView coin_select = new(FormCoinsViewType.SelectCoin);
+                    coin_select.ShowDialog();
+
+                    if (coin_select.SelectedCoin != null && CoinsOwner != null)
+                        CoinsOwner.AddCoin(coin_select.SelectedCoin);
+                    else if (coin_select.SelectedCoin != null)
+                        UserData.AddCoinToPersonal(coin_select.SelectedCoin);
+
+                    ApplyFilters();
+                };
+
+                cms.Items.Add(add_coin);
             }
 
             e.ContextMenuStrip = cms;
         }
+
     }
 }

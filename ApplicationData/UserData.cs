@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.IO;
+using NumismaticsCatalog.Models;
 
 namespace NumismaticsCatalog.ApplicationData
 {
@@ -45,7 +46,17 @@ namespace NumismaticsCatalog.ApplicationData
 
         public static void LoadSavedData()
         {
-            LoadSavedData(_currentFilePath);
+            try
+            {
+                LoadSavedData(_currentFilePath);
+            }
+         catch(Exception ex)
+            {
+                if (ex.Message == "Empty object")
+                    return;
+                else
+                    throw;
+            }
         }
 
         public static void SaveData(string file_path)
@@ -60,6 +71,12 @@ namespace NumismaticsCatalog.ApplicationData
         public static void SaveData()
         {
             SaveData(_currentFilePath);
+        }
+
+        public static void AddCoinToPersonal(Coin coin)
+        {
+            if (Data.MyCoins.Find(x => x == coin) == null)
+                Data.MyCoins.Add(coin);
         }
 
     }

@@ -51,11 +51,15 @@ namespace NumismaticsCatalog
 
 
             ContextMenuStrip cms = new();
-            ToolStripMenuItem add_collector = new ()
+            ToolStripMenuItem add_collector = new()
             {
-                Name = "Створити колекціонера"
+                Text = "Створити колекціонера"
             };
-            //add_collector.Click += (_, _) => ();
+            add_collector.Click += (_, _) =>
+            {
+                new FormEditCollector().ShowDialog();
+                ApplyFilters();
+            };
             cms.Items.Add(add_collector);
             grid.ContextMenuStrip = cms;
         }
@@ -132,12 +136,15 @@ namespace NumismaticsCatalog
 
         private void DeleteCollectorDialog(Collector collector)
         {
-            var res = 
-                MessageBox.Show($"Видалити колекціонера на ім'я {collector.Name}?", "Увага", 
+            var res =
+                MessageBox.Show($"Видалити колекціонера на ім'я {collector.Name}?", "Увага",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-           
-            if(res==DialogResult.Yes)
+
+            if (res == DialogResult.Yes)
+            {
                 UserData.Data.Collectors.Remove(collector);
+                ApplyFilters();
+            }
         }
 
         private void dGV_Collectioners_RowContextMenuStripNeeded(object sender, DataGridViewRowContextMenuStripNeededEventArgs e)
@@ -162,21 +169,30 @@ namespace NumismaticsCatalog
                 {
                     Text = "Редагувати"
                 };
-                //coin_view.Click += (_, _) => (new FormCoinsView(selected_collector)).ShowDialog();
-                cms.Items.Add(edit_collector); 
+                edit_collector.Click += (_, _) =>
+                {
+                    new FormEditCollector(selected_collector).ShowDialog();
+                    ApplyFilters();
+                };
+                cms.Items.Add(edit_collector);
 
                 ToolStripMenuItem delete_collector = new()
                 {
                     Text = "Видалити"
                 };
-                coin_view.Click += (_, _) => DeleteCollectorDialog(selected_collector);
+                delete_collector.Click += (_, _) => DeleteCollectorDialog(selected_collector);
                 cms.Items.Add(delete_collector);
             }
+
             ToolStripMenuItem create_collector = new()
             {
                 Text = "Створити нового колекціонера"
             };
-            //create_collector.Click += (_, _) => (new FormCoinsView(selected_collector)).ShowDialog();
+            create_collector.Click += (_, _) => 
+            { 
+                new FormEditCollector().ShowDialog();
+                ApplyFilters(); 
+            };
             cms.Items.Add(create_collector);
 
 
