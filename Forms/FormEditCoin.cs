@@ -57,6 +57,20 @@ namespace NumismaticsCatalog.Forms
             cb_Currency.SelectedIndex = -1;
         }
 
+        private void LoadMetalsSuggestions()
+        {
+            this.tb_Metals.AutoCompleteSource
+                 = AutoCompleteSource.CustomSource;
+            this.tb_Metals.AutoCompleteMode
+                 = AutoCompleteMode.Append;
+
+            AutoCompleteStringCollection metal_names = new();
+            foreach (Metal m in UserData.Data.Metals)
+                metal_names.Add(m.Name);
+            this.tb_Metals.AutoCompleteCustomSource =
+                metal_names;
+        }
+
         public void ApplyEditing()
         {
             //Check all fields
@@ -77,6 +91,9 @@ namespace NumismaticsCatalog.Forms
                 throw new ArgumentException("Не вірно визначено валюту монети!");
 
             int? amount = InputConversion.ConvertToAmount(tb_Amount.Text);
+            if(amount == null && tb_Amount.Text.Length != 0)
+                throw new ArgumentException("Не вірно визначено кількість виготовлених монет!");
+
             string? notes = InputConversion.ConvertString(tb_Notes.Text);
             string[] metals = tb_Metals.Text.Split(',', StringSplitOptions.RemoveEmptyEntries);
 
@@ -153,6 +170,7 @@ namespace NumismaticsCatalog.Forms
         {
             LoadCountrySuggestions();
             LoadCurrencySuggestions();
+            LoadMetalsSuggestions();
             LoadCoinData();
         }
     }

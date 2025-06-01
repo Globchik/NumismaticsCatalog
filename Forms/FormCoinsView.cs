@@ -171,15 +171,15 @@ namespace NumismaticsCatalog.Forms
 
         private void LoadMetalsSuggestions()
         {
-            this.cb_Country.AutoCompleteSource
+            this.tb_Metals.AutoCompleteSource
                  = AutoCompleteSource.CustomSource;
-            this.cb_Country.AutoCompleteMode
+            this.tb_Metals.AutoCompleteMode
                  = AutoCompleteMode.Append;
 
             AutoCompleteStringCollection metal_names = new();
             foreach (Metal m in UserData.Data.Metals)
                 metal_names.Add(m.Name);
-            this.cb_Country.AutoCompleteCustomSource =
+            this.tb_Metals.AutoCompleteCustomSource =
                 metal_names;
         }
 
@@ -213,7 +213,7 @@ namespace NumismaticsCatalog.Forms
                     countryn.ToLower().Contains(countryf) &&
                     amount.Contains(amountf) &&
                     c.CoinValueString.Contains(nominalf) &&
-                    c.Notes.Contains(notesf);
+                    c.Notes.ToLower().Contains(notesf);
 
                 foreach (string s in metalf_arr)
                     if (!filter_passsed)

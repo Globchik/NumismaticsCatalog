@@ -375,6 +375,7 @@ namespace NumismaticsCatalog.Forms
             // cb_Country
             // 
             cb_Country.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            cb_Country.AutoCompleteMode = AutoCompleteMode.Suggest;
             cb_Country.AutoCompleteSource = AutoCompleteSource.ListItems;
             cb_Country.Font = new Font("Verdana", 12F);
             cb_Country.FormattingEnabled = true;
