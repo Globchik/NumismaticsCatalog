@@ -14,9 +14,9 @@ namespace NumismaticsCatalog.Models
     {
         public List<Metal> MetalContent = new();
         public Currency? CoinCurrency { get; set; }
-        public float CoinValue { get; set; }
+        public float? CoinValue { get; set; }
         public Country? Country { get; set; }
-        public string Notes { get; set; }
+        public string Notes { get; set; } = "";
 
         int? _issueAmount;
         public int? AmountIssued
@@ -31,8 +31,8 @@ namespace NumismaticsCatalog.Models
             }
         }
 
-        int _year;
-        public int YearOfIssue
+        int? _year;
+        public int? YearOfIssue
         {
             get => _year;
             set
@@ -44,23 +44,6 @@ namespace NumismaticsCatalog.Models
             }
         }
 
-        public Coin()
-        {
-            Country = null;
-            Notes = "";
-        }
-
-        public Coin(int year_of_issue, Country country, int? amount_issued, Currency currency,
-            float coin_value, List<Metal> metal_content, string notes = "")
-        {
-            YearOfIssue = year_of_issue;
-            Country = country;
-            AmountIssued = amount_issued;
-            CoinCurrency = currency;
-            CoinValue = coin_value;
-            MetalContent = metal_content;
-            Notes = notes;
-        }
 
         [JsonIgnore]
         public string? CountryString
@@ -93,6 +76,12 @@ namespace NumismaticsCatalog.Models
                     res += ", " + MetalContent[i].Name;
                 return res;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{YearOfIssue} {CountryString} " +
+                $"{CoinValueString} {MetalContentString} {Notes}";
         }
     }
 }

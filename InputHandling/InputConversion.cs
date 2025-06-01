@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NumismaticsCatalog.Validation
+namespace NumismaticsCatalog.InputHandling
 {
     public static class InputConversion
     {
@@ -20,24 +20,34 @@ namespace NumismaticsCatalog.Validation
 
             return str;
         }
-        public static int? ConvertToInt(string str)
+        public static int? ConvertToAmount(string str)
         {
             int res;
             bool success = int.TryParse(str, out res);
-            if (!success)
+            if (!success || res < 1)
                 return null;
             else
                 return res;
         }
 
-        public static double? ConvertToDouble(string str)
+        public static int? ConvertToYear(string str)
         {
-            double res;
-            bool success = double.TryParse(str, out res);
-            if (!success)
+            int res;
+            bool success = int.TryParse(str, out res);
+            if (!success || res < 0 || res > 9999)
                 return null;
             else
                 return res;
+        }
+
+        public static float? ConvertToCoinValue(string str)
+        {
+            float res;
+            bool success = float.TryParse(str, out res);
+            if (!success || res < 0)
+                return null;
+            else
+                return (float)Math.Round(res,2);
         }
     }
 }

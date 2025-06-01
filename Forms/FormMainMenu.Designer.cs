@@ -200,6 +200,7 @@
             Name = "FormMainMenu";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Довідник Нумізмата";
+            FormClosing += FormMainMenu_FormClosing;
             tLP_menu.ResumeLayout(false);
             tLP_menu.PerformLayout();
             p_Buttons.ResumeLayout(false);
