@@ -1,4 +1,4 @@
-using NumismaticsCatalog.AppData;
+using NumismaticsCatalog.ApplicationData;
 using System.Windows.Forms;
 
 namespace NumismaticsCatalog
@@ -14,8 +14,8 @@ namespace NumismaticsCatalog
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            TestData.LoadTestData();
-            Application.Run(new FormCollectorsView());
+            UserData.LoadSavedData();
+            Application.Run(new FormMainMenu());
         }
     }
 }

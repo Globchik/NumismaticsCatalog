@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NumismaticsCatalog.AppData
+namespace NumismaticsCatalog.ApplicationData
 {
     /// <summary>
     /// AppData represents a combined collection
@@ -18,6 +18,7 @@ namespace NumismaticsCatalog.AppData
         public List<Currency> Currencies = new();
         public List<Coin> Coins = new();
         public List<Collector> Collectors = new();
+        public List<Coin> MyCoins = new();
 
     }
 }

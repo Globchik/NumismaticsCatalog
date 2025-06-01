@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.IO;
 
-namespace NumismaticsCatalog.AppData
+namespace NumismaticsCatalog.ApplicationData
 {
     /// <summary>
     /// UserData class encapsulates an AppData object that
@@ -17,16 +17,16 @@ namespace NumismaticsCatalog.AppData
     {
         public static AppData Data = new();
 
-        private static readonly JsonSerializerOptions _jsonOptions = new() 
+        private static readonly JsonSerializerOptions _jsonOptions = new()
         {
             ReferenceHandler = ReferenceHandler.Preserve,
             WriteIndented = true,
-            IncludeFields = true
+            IncludeFields = true,
         };
 
         private static readonly string _currentFilePath = "SavedData/save.json";
 
-        private static void LoadSavedData(string file_path)
+        public static void LoadSavedData(string file_path)
         {
             string str_data;
             using (StreamReader sr = new(file_path))
@@ -35,6 +35,12 @@ namespace NumismaticsCatalog.AppData
             }
             Data = JsonSerializer.Deserialize<AppData>(str_data, _jsonOptions) ??
                 throw new Exception("Can not serialize");
+
+            if (Data.Coins.Count == 0 && Data.Currencies.Count == 0 &&
+                Data.Metals.Count == 0 && Data.Collectors.Count == 0 &&
+                Data.Countries.Count == 0 && Data.Metals.Count == 0 &&
+                Data.MyCoins.Count == 0)
+                throw new Exception("Empty object");
         }
 
         public static void LoadSavedData()
@@ -42,7 +48,7 @@ namespace NumismaticsCatalog.AppData
             LoadSavedData(_currentFilePath);
         }
 
-        private static void SaveData(string file_path)
+        public static void SaveData(string file_path)
         {
             string res = JsonSerializer.Serialize(Data, _jsonOptions);
             using (StreamWriter sr = new(file_path))

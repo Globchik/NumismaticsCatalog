@@ -44,11 +44,11 @@ namespace NumismaticsCatalog.Forms
             dGV_Coins.AllowUserToOrderColumns = true;
             dGV_Coins.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dGV_Coins.Dock = DockStyle.Fill;
-            dGV_Coins.Location = new Point(10, 50);
+            dGV_Coins.Location = new Point(10, 100);
             dGV_Coins.Margin = new Padding(0);
             dGV_Coins.Name = "dGV_Coins";
             dGV_Coins.ReadOnly = true;
-            dGV_Coins.Size = new Size(813, 290);
+            dGV_Coins.Size = new Size(978, 330);
             dGV_Coins.TabIndex = 0;
             // 
             // Tlpanel
@@ -61,19 +61,20 @@ namespace NumismaticsCatalog.Forms
             Tlpanel.Name = "Tlpanel";
             Tlpanel.Padding = new Padding(10);
             Tlpanel.RowCount = 2;
-            Tlpanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            Tlpanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 90F));
             Tlpanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            Tlpanel.Size = new Size(833, 350);
+            Tlpanel.Size = new Size(998, 440);
             Tlpanel.TabIndex = 1;
             // 
             // FormCoinsView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(833, 350);
+            ClientSize = new Size(998, 440);
             Controls.Add(Tlpanel);
             MinimumSize = new Size(600, 170);
             Name = "FormCoinsView";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Монети";
             Load += FormCoinsList_Load;
             ((System.ComponentModel.ISupportInitialize)dGV_Coins).EndInit();

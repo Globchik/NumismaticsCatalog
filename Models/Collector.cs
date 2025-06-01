@@ -33,7 +33,7 @@ namespace NumismaticsCatalog.Models
         }
 
         [JsonIgnore]
-        public string CountryString { get => Country.Name; }
+        public string CountryString { get => Country == null ? "" : Country.Name; }
 
         public void AddCoin(Coin coin)
         {
