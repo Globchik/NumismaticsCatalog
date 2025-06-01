@@ -46,11 +46,11 @@ namespace NumismaticsCatalog.Models
 
 
         [JsonIgnore]
-        public string? CountryString
+        public string CountryString
         {
             get
             {
-                return Country?.Name;
+                return Country == null? "":Country.Name;
             }
         }
 

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            lbl_Title = new System.Windows.Forms.Label();
             panel7 = new System.Windows.Forms.Panel();
             tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             cb_Currency = new System.Windows.Forms.ComboBox();
@@ -60,7 +61,6 @@
             tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             label3 = new System.Windows.Forms.Label();
             cb_Country = new System.Windows.Forms.ComboBox();
-            lbl_Title = new System.Windows.Forms.Label();
             tableLayoutPanel1.SuspendLayout();
             panel7.SuspendLayout();
             tableLayoutPanel8.SuspendLayout();
@@ -104,6 +104,24 @@
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             tableLayoutPanel1.Size = new System.Drawing.Size(783, 261);
             tableLayoutPanel1.TabIndex = 0;
+            // 
+            // lbl_Title
+            // 
+            lbl_Title.AutoSize = true;
+            lbl_Title.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            lbl_Title.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            tableLayoutPanel1.SetColumnSpan(lbl_Title, 4);
+            lbl_Title.Dock = System.Windows.Forms.DockStyle.Fill;
+            lbl_Title.Font = new System.Drawing.Font("Segoe UI", 20F);
+            lbl_Title.ForeColor = System.Drawing.Color.White;
+            lbl_Title.Location = new System.Drawing.Point(3, 0);
+            lbl_Title.Margin = new System.Windows.Forms.Padding(3, 0, 3, 5);
+            lbl_Title.Name = "lbl_Title";
+            lbl_Title.Padding = new System.Windows.Forms.Padding(3);
+            lbl_Title.Size = new System.Drawing.Size(777, 45);
+            lbl_Title.TabIndex = 11;
+            lbl_Title.Text = "Монета";
+            lbl_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel7
             // 
@@ -488,24 +506,6 @@
             cb_Country.Size = new System.Drawing.Size(175, 26);
             cb_Country.TabIndex = 1;
             // 
-            // lbl_Title
-            // 
-            lbl_Title.AutoSize = true;
-            lbl_Title.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            lbl_Title.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            tableLayoutPanel1.SetColumnSpan(lbl_Title, 4);
-            lbl_Title.Dock = System.Windows.Forms.DockStyle.Fill;
-            lbl_Title.Font = new System.Drawing.Font("Segoe UI", 20F);
-            lbl_Title.ForeColor = System.Drawing.Color.White;
-            lbl_Title.Location = new System.Drawing.Point(3, 0);
-            lbl_Title.Margin = new System.Windows.Forms.Padding(3, 0, 3, 5);
-            lbl_Title.Name = "lbl_Title";
-            lbl_Title.Padding = new System.Windows.Forms.Padding(3);
-            lbl_Title.Size = new System.Drawing.Size(777, 45);
-            lbl_Title.TabIndex = 11;
-            lbl_Title.Text = "Монета";
-            lbl_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // FormEditCoin
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -515,6 +515,7 @@
             MaximumSize = new System.Drawing.Size(1080, 300);
             MinimumSize = new System.Drawing.Size(562, 255);
             Name = "FormEditCoin";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "Монета";
             Load += FormEditCoin_Load;
             tableLayoutPanel1.ResumeLayout(false);

@@ -278,7 +278,7 @@ namespace NumismaticsCatalog
             Controls.Add(tlp_Layout);
             MinimumSize = new Size(550, 340);
             Name = "FormCollectorsView";
-            StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Колекціонери";
             Load += FormCollectorsView_Load;
             KeyDown += FormCollectorsView_KeyDown;

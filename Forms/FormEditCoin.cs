@@ -103,12 +103,12 @@ namespace NumismaticsCatalog.Forms
             foreach (string metal in metals)
             {
                 Metal? coin_metal = UserData.Data.Metals.Find(
-                x => x.Name.ToLower() == metal.ToLower()
+                x => x.Name.ToLower().Trim() == metal.ToLower().Trim()
                 );
 
                 if (coin_metal == null)
                 {
-                    coin_metal = new(metal);
+                    coin_metal = new(metal.Trim());
                     UserData.Data.Metals.Add(coin_metal);
                 }
                 coin_metals.Add(coin_metal);

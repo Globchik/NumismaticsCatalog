@@ -79,5 +79,29 @@ namespace NumismaticsCatalog.ApplicationData
                 Data.MyCoins.Add(coin);
         }
 
+        public static void RemoveCountry(Country c)
+        {
+            Data.Countries.Remove(c);
+            foreach (Coin coin in Data.Coins)
+                if (coin.Country == c)
+                    coin.Country = null;
+            foreach (Collector col in Data.Collectors)
+                if (col.Country == c)
+                    col.Country = null;
+        }
+        public static void RemoveCurrency(Currency c)
+        {
+            Data.Currencies.Remove(c);
+            foreach (Coin coin in Data.Coins)
+                if (coin.CoinCurrency == c)
+                    coin.CoinCurrency = null;
+        }
+
+        public static void RemoveMetal(Metal m)
+        {
+            Data.Metals.Remove(m);
+            foreach (Coin coin in Data.Coins)
+                coin.MetalContent.Remove(m);
+        }
     }
 }

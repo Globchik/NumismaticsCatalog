@@ -8,8 +8,11 @@ namespace NumismaticsCatalog.InputHandling
 {
     public static class InputConversion
     {
-        public static string? ConvertString(string str, bool can_be_empty = true)
+        public static string? ConvertString(string? str, bool can_be_empty = true)
         {
+            if (str == null)
+                return null;
+
             str = str.Trim();
 
             if (str.Length > 100)

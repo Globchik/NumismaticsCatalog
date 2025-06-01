@@ -122,10 +122,16 @@ namespace NumismaticsCatalog
         {
             EraseDataDialog();
         }
+        private void btn_Other_Click(object sender, EventArgs e)
+        {
+            ShowForm(new FormEditAdditionalTables());
+        }
 
         private void FormMainMenu_FormClosing(object sender, FormClosingEventArgs e)
         {
             UserData.SaveData();
         }
+
+
     }
 }

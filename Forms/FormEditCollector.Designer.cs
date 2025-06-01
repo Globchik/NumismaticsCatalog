@@ -277,6 +277,7 @@
             MaximumSize = new System.Drawing.Size(1369, 249);
             MinimumSize = new System.Drawing.Size(544, 199);
             Name = "FormEditCollector";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "FormEditCollector";
             Load += FormEditCollector_Load;
             tlp_Layout.ResumeLayout(false);

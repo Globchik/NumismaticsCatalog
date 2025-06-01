@@ -439,7 +439,7 @@ namespace NumismaticsCatalog.Forms
             Controls.Add(Tlpanel);
             MinimumSize = new Size(909, 286);
             Name = "FormCoinsView";
-            StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Монети";
             Load += FormCoinsList_Load;
             KeyDown += FormCoinsView_KeyDown;
