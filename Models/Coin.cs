@@ -80,8 +80,8 @@ namespace NumismaticsCatalog.Models
 
         public override string ToString()
         {
-            return $"{YearOfIssue} {CountryString} " +
-                $"{CoinValueString} {MetalContentString} {Notes}";
+            return $"{YearOfIssue};{CountryString};" +
+                $"{CoinValueString};{MetalContentString}.";
         }
     }
 }

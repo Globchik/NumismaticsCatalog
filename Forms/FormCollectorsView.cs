@@ -21,9 +21,8 @@ namespace NumismaticsCatalog
         public FormCollectorsView(Coin coin)
         {
             InitializeComponent();
-            this.Text = $"Колекціонери - Мають монету {coin.CoinCurrency} " +
-                $"{coin.CoinValueString} {coin.YearOfIssue}";
-
+            this.Text = $"Колекціонери - Мають монету {coin.ToString()}";
+            this.lbl_Title.Text = $"Мають монету: {coin.ToString()}";
             List<Collector> collectors_by_coin = new();
             foreach (Collector c in UserData.Data.Collectors)
             {

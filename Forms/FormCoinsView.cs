@@ -314,6 +314,13 @@ namespace NumismaticsCatalog.Forms
                 };
                 delete_coin.Click += (_, _) => DeleteCoinDialog(selected_coin);
                 cms.Items.Add(delete_coin);
+
+                ToolStripMenuItem search_collectors = new()
+                {
+                    Text = "Знайти колекціонерів"
+                };
+                search_collectors.Click += (_, _) => new FormCollectorsView(selected_coin).ShowDialog();
+                cms.Items.Add(search_collectors);
             }
 
             if (form_type == FormCoinsViewType.ViewAll)
