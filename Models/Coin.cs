@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using System.Xml.Serialization;
 
 namespace NumismaticsCatalog.Models
 {
@@ -14,9 +13,21 @@ namespace NumismaticsCatalog.Models
     {
         public List<Metal> MetalContent = new();
         public Currency? CoinCurrency { get; set; }
-        public float? CoinValue { get; set; }
         public Country? Country { get; set; }
-        public string Notes { get; set; } = "";
+        public string Notes { get; set; } = String.Empty;
+
+        float _coin_value;
+        public float CoinValue
+        {
+            get => _coin_value;
+            set
+            {
+                if (Math.Truncate(value * 100) != value * 100 || value <= 0)
+                    throw new ArgumentException("Wrong coin value format");
+
+                _coin_value = value;
+            }
+        }
 
         int? _issueAmount;
         public int? AmountIssued
@@ -37,8 +48,8 @@ namespace NumismaticsCatalog.Models
             get => _year;
             set
             {
-                if (value != null && value < 0)
-                    throw new ArgumentException("Wrong Year of issue.");
+                if (value != null && (value < 0 || value > 9999))
+                    throw new ArgumentException("Wrong year of issue format.");
 
                 _year = value;
             }
@@ -50,7 +61,7 @@ namespace NumismaticsCatalog.Models
         {
             get
             {
-                return Country == null? "":Country.Name;
+                return Country == null ? String.Empty : Country.Name;
             }
         }
 

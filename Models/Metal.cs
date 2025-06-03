@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 namespace NumismaticsCatalog.Models
 {
@@ -12,7 +7,17 @@ namespace NumismaticsCatalog.Models
     /// </summary>
     public class Metal
     {
-        public string Name { get; set; }
+        private string _name = String.Empty;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (value.Length > 100)
+                    throw new ArgumentException("Too long");
+                _name = value;
+            }
+        }
 
         public Metal(string name)
         {

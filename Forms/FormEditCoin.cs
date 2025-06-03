@@ -26,7 +26,18 @@ namespace NumismaticsCatalog.Forms
             create_new = false;
         }
 
-        private void LoadCoinData()
+        private void ClearInputs()
+        {
+            tb_Year.Text = String.Empty;
+            cb_Country.Text = String.Empty;
+            tb_Nominal.Text = String.Empty;
+            cb_Currency.Text = String.Empty;
+            tb_Metals.Text = String.Empty;
+            tb_Amount.Text = String.Empty;
+            tb_Notes.Text = String.Empty;
+        }
+
+        private void LoadCoinToInputs()
         {
             tb_Year.Text = CoinToEdit.YearOfIssue.ToString();
             cb_Country.Text = CoinToEdit.CountryString;
@@ -35,6 +46,14 @@ namespace NumismaticsCatalog.Forms
             tb_Metals.Text = CoinToEdit.MetalContentString;
             tb_Amount.Text = CoinToEdit.AmountIssued.ToString();
             tb_Notes.Text = CoinToEdit.Notes;
+        }
+
+        private void LoadCoinData()
+        {
+            if (create_new)
+                ClearInputs();
+            else
+                LoadCoinToInputs();
         }
 
         private void LoadCountrySuggestions()

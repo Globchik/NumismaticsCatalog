@@ -19,6 +19,5 @@ namespace NumismaticsCatalog.ApplicationData
         public List<Coin> Coins = new();
         public List<Collector> Collectors = new();
         public List<Coin> MyCoins = new();
-
     }
 }

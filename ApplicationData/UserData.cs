@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.IO;
@@ -50,7 +47,7 @@ namespace NumismaticsCatalog.ApplicationData
             {
                 LoadSavedData(_currentFilePath);
             }
-         catch(Exception ex)
+            catch (Exception ex)
             {
                 if (ex.Message == "Empty object")
                     return;

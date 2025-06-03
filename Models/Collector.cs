@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Text.Json.Serialization;
+using System.Xml.Linq;
 
 namespace NumismaticsCatalog.Models
 {
@@ -12,16 +14,39 @@ namespace NumismaticsCatalog.Models
     /// </summary>
     public class Collector
     {
-        public string Name { get; set; }
-        public Country? Country { get; set; }
-        public string ContactInformation { get; set; }
+        private string _name = String.Empty;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (value.Length > 100)
+                    throw new ArgumentException("Too long");
+                _name = value;
+            }
+        }
+        public Country? Country { get; set; } = null;
+
         public List<Coin> CoinCollection = new();
 
+        private string _contactInfo = String.Empty;
+        public string ContactInformation 
+        { 
+            get => _contactInfo; 
+            set
+            {
+                if (value.Length > 100)
+                    throw new ArgumentException("Too long");
+
+                _contactInfo = value;
+            }
+        }
+       
         public Collector()
         {
-            Name = "";
+            Name = String.Empty;
             Country = null;
-            ContactInformation = "";
+            ContactInformation = String.Empty;
         }
 
         public Collector(string name, Country country, string contact_information = "")
@@ -30,6 +55,7 @@ namespace NumismaticsCatalog.Models
             Country = country;
             ContactInformation = contact_information;
         }
+
 
         [JsonIgnore]
         public string CountryString { get => Country == null ? "" : Country.Name; }

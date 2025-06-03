@@ -1,4 +1,5 @@
 using NumismaticsCatalog.ApplicationData;
+using System;
 using System.Windows.Forms;
 
 namespace NumismaticsCatalog
@@ -14,7 +15,14 @@ namespace NumismaticsCatalog
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            UserData.LoadSavedData();
+            try
+            {
+                UserData.LoadSavedData();
+            }
+            catch (Exception)
+            {
+                //no saved data - empty UserData
+            }
             Application.Run(new FormMainMenu());
         }
     }

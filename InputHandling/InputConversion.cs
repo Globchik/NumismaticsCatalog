@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NumismaticsCatalog.InputHandling
 {
@@ -47,10 +43,14 @@ namespace NumismaticsCatalog.InputHandling
         {
             float res;
             bool success = float.TryParse(str, out res);
+
             if (!success || res < 0)
                 return null;
-            else
-                return (float)Math.Round(res,2);
+
+            if (Math.Truncate(res * 100) != res * 100)
+                return null;
+
+            return (float)Math.Round(res,2);
         }
     }
 }

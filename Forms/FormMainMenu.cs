@@ -52,6 +52,8 @@ namespace NumismaticsCatalog
             if (dr != DialogResult.OK)
                 return;
 
+            UserData.SaveData();
+
             OpenFileDialog file_dialog = new();
             file_dialog.Filter = "JSON (*.json)|*.json";
             dr = file_dialog.ShowDialog();
